@@ -176,6 +176,25 @@ class NotificationService:
         logger.info(f"Deleted {result.deleted_count} old notifications")
         return result.deleted_count
 
+    async def log(self, action_type: str = "", resource_type: str = "",
+                  resource_id: str = "", user_id: str = "", username: str = "",
+                  user_role: str = "", change_details: Optional[Dict] = None, **kwargs):
+        """Audit log method for compatibility with audit_service interface."""
+        try:
+            await self.db.audit_logs.insert_one({
+                "id": str(uuid.uuid4()),
+                "action_type": action_type,
+                "resource_type": resource_type,
+                "resource_id": resource_id,
+                "user_id": user_id,
+                "username": username,
+                "user_role": user_role,
+                "change_details": change_details or {},
+                "created_at": datetime.now(timezone.utc).isoformat(),
+            })
+        except Exception as e:
+            logger.warning(f"Audit log failed: {e}")
+
     # ─── WEBSOCKET MANAGEMENT ────────────────────────────────────────
 
     def register_websocket(self, user_id: str, websocket):

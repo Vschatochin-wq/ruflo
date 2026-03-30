@@ -398,16 +398,7 @@ def create_review_router(db, audit_service, get_current_user, workflow_service=N
             }},
             {"$project": {
                 "_id": 0,
-                "review_data": 0,
-                "id": 1,
-                "complaint_number": 1,
-                "customer_name": 1,
-                "status": 1,
-                "updated_at": 1,
-                "current_step": 1,
-                "assigned_zqm": 1,
-                "assigned_processor": 1,
-                "latest_review": 1,
+                "review_data": 0
             }}
         ]
 

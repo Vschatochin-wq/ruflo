@@ -66,7 +66,7 @@ export default function AppLayout({ currentPage, onNavigate, currentUser, childr
           </div>
           {!collapsed && (
             <div className="min-w-0">
-              <p className="text-sm font-bold text-gray-800 truncate">G\u00dcHRING</p>
+              <p className="text-sm font-bold text-gray-800 truncate">{"GÜHRING"}</p>
               <p className="text-[10px] text-gray-400 truncate">Reklamationsmanagement</p>
             </div>
           )}

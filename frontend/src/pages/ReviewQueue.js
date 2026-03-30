@@ -67,7 +67,7 @@ export default function ReviewQueue({ onNavigate }) {
     };
     fetchData();
     return () => controller.abort();
-  }, [isAuthorized, navigate]);
+  }, [isAuthorized, onNavigate]);
 
   const fetchData = useCallback(async () => {
     try {

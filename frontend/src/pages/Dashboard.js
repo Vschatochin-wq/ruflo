@@ -348,7 +348,7 @@ export default function Dashboard({ onNavigate }) {
                               {c.complaint_number || c.id?.substring(0, 8)}
                             </td>
                             <td className="py-3 text-gray-600">
-                              {c.customer_name || '\u2014'}
+                              {c.customer_name || '—'}
                             </td>
                             <td className="py-3">
                               <StatusBadge status={c.status} size="sm" />
@@ -356,7 +356,7 @@ export default function Dashboard({ onNavigate }) {
                             <td className="py-3 text-gray-500 text-xs">
                               {c.created_at
                                 ? new Date(c.created_at).toLocaleDateString('de-DE')
-                                : '\u2014'}
+                                : '—'}
                             </td>
                             <td className="py-3 text-right">
                               {c.quality_score != null ? (
@@ -368,7 +368,7 @@ export default function Dashboard({ onNavigate }) {
                                   {c.quality_score}
                                 </span>
                               ) : (
-                                <span className="text-gray-300">{'\u2014'}</span>
+                                <span className="text-gray-300">{'—'}</span>
                               )}
                             </td>
                             <td className="py-3">

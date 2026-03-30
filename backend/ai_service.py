@@ -67,21 +67,21 @@ REQUIRED_FIELDS = [
 
 
 class AIService:
-    """Unified AI service with intelligent model routing."""
+    """Unified AI service with intelligent model routing via Emergent LLM Key."""
 
     def __init__(self, db: AsyncIOMotorDatabase):
         self.db = db
-        self._client = None
+        self._api_key = None
 
     @property
-    def client(self):
-        if not self._client:
-            import anthropic
-            api_key = os.getenv("ANTHROPIC_API_KEY")
-            if not api_key:
-                raise RuntimeError("ANTHROPIC_API_KEY nicht konfiguriert")
-            self._client = anthropic.AsyncAnthropic(api_key=api_key)
-        return self._client
+    def api_key(self):
+        if not self._api_key:
+            from dotenv import load_dotenv
+            load_dotenv()
+            self._api_key = os.getenv("EMERGENT_LLM_KEY")
+            if not self._api_key:
+                raise RuntimeError("EMERGENT_LLM_KEY nicht konfiguriert")
+        return self._api_key
 
     async def _call_model(
         self,
@@ -90,19 +90,20 @@ class AIService:
         user_prompt: str,
         max_tokens: int = 4096
     ) -> str:
-        """Call a Claude model and return the text response with timeout."""
-        import asyncio
+        """Call a Claude model via Emergent LLM integration and return text response."""
+        import uuid
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+
         model_config = MODELS[model_key]
-        response = await asyncio.wait_for(
-            self.client.messages.create(
-                model=model_config["id"],
-                max_tokens=max_tokens,
-                system=system_prompt,
-                messages=[{"role": "user", "content": user_prompt}]
-            ),
-            timeout=30
-        )
-        return response.content[0].text.strip()
+        chat = LlmChat(
+            api_key=self.api_key,
+            session_id=f"ai-{model_key}-{uuid.uuid4().hex[:8]}",
+            system_message=system_prompt
+        ).with_model("anthropic", model_config["id"])
+
+        user_message = UserMessage(text=user_prompt)
+        response = await chat.send_message(user_message)
+        return response.strip()
 
     async def _call_model_json(
         self,

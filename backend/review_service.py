@@ -162,18 +162,18 @@ class ReviewService:
         self.db = db
         self.reviews_collection = db.opus_reviews
         self.complaints_collection = db.complaints
-        self._client = None
+        self._api_key = None
 
     @property
-    def _anthropic_client(self):
-        """Lazy singleton Anthropic client for connection reuse."""
-        if not self._client:
-            import anthropic
-            api_key = os.getenv("ANTHROPIC_API_KEY")
-            if not api_key:
-                raise RuntimeError("ANTHROPIC_API_KEY ist nicht konfiguriert")
-            self._client = anthropic.AsyncAnthropic(api_key=api_key)
-        return self._client
+    def api_key(self):
+        """Lazy-load the Emergent LLM API key."""
+        if not self._api_key:
+            from dotenv import load_dotenv
+            load_dotenv()
+            self._api_key = os.getenv("EMERGENT_LLM_KEY")
+            if not self._api_key:
+                raise RuntimeError("EMERGENT_LLM_KEY ist nicht konfiguriert")
+        return self._api_key
 
     async def create_indexes(self):
         """Create database indexes for performance."""
@@ -510,25 +510,21 @@ class ReviewService:
         }
 
     async def _call_opus(self, prompt_data: Dict[str, str]) -> Dict[str, Any]:
-        """Call Claude Opus 4.6 for 8D report review with timeout."""
-        import asyncio
-        import anthropic
+        """Call Claude Opus 4.6 for 8D report review via Emergent LLM integration."""
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
 
-        client = self._anthropic_client
         user_prompt = OPUS_REVIEW_USER_PROMPT.format(**prompt_data)
 
         try:
-            response = await asyncio.wait_for(
-                client.messages.create(
-                    model="claude-opus-4-6",
-                    max_tokens=4096,
-                    system=OPUS_REVIEW_SYSTEM_PROMPT,
-                    messages=[{"role": "user", "content": user_prompt}]
-                ),
-                timeout=60
-            )
+            chat = LlmChat(
+                api_key=self.api_key,
+                session_id=f"opus-review-{prompt_data.get('complaint_number', 'unknown')}",
+                system_message=OPUS_REVIEW_SYSTEM_PROMPT
+            ).with_model("anthropic", "claude-opus-4-6")
 
-            response_text = response.content[0].text.strip()
+            user_message = UserMessage(text=user_prompt)
+            response_text = await chat.send_message(user_message)
+            response_text = response_text.strip()
 
             # Extract JSON from response
             if "```json" in response_text:
@@ -549,18 +545,12 @@ class ReviewService:
 
             return review_data
 
-        except asyncio.TimeoutError:
-            logger.error("Opus 4.6 call timed out after 60s")
-            raise RuntimeError("Opus 4.6 Zeitüberschreitung — bitte erneut versuchen")
         except json.JSONDecodeError as e:
             logger.error(f"Failed to parse Opus 4.6 response as JSON: {e}")
             return self._fallback_review("JSON-Parsing fehlgeschlagen")
-        except anthropic.APIError as e:
-            logger.error(f"Opus 4.6 API error: {e}")
-            raise RuntimeError("Qualitätsprüfung fehlgeschlagen — API-Fehler. Bitte versuchen Sie es später erneut.")
         except Exception as e:
-            logger.error(f"Unexpected error calling Opus 4.6: {e}")
-            raise RuntimeError("Qualitätsprüfung fehlgeschlagen. Bitte versuchen Sie es später erneut.")
+            logger.error(f"Opus 4.6 review error: {e}")
+            raise RuntimeError("Qualitaetspruefung fehlgeschlagen. Bitte versuchen Sie es spaeter erneut.")
 
     def _fallback_review(self, reason: str) -> Dict[str, Any]:
         """Generate a fallback review when Opus parsing fails."""

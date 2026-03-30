@@ -51,7 +51,7 @@ function ActionTable({ actions = [], editing, onChange, addLabel }) {
   return (
     <div className="space-y-2">
       {actions.length === 0 && !editing && (
-        <p className="text-sm text-gray-400 italic">Keine Eintr\u00e4ge</p>
+        <p className="text-sm text-gray-400 italic">Keine Einträge</p>
       )}
       {actions.map((a, idx) => (
         <div key={idx} className="grid grid-cols-12 gap-2 items-start p-2 rounded border bg-white">
@@ -72,7 +72,7 @@ function ActionTable({ actions = [], editing, onChange, addLabel }) {
       ))}
       {editing && (
         <Button variant="outline" size="sm" onClick={handleAdd}>
-          <Plus className="w-3 h-3 mr-1" />{addLabel || 'Hinzuf\u00fcgen'}
+          <Plus className="w-3 h-3 mr-1" />{addLabel || 'Hinzufügen'}
         </Button>
       )}
     </div>
@@ -104,7 +104,7 @@ function FiveWhyEditor({ items = [], editing, onChange }) {
       ))}
       {editing && items.length < 7 && (
         <Button variant="ghost" size="sm" onClick={handleAdd}>
-          <Plus className="w-3 h-3 mr-1" />Warum hinzuf\u00fcgen
+          <Plus className="w-3 h-3 mr-1" />Warum hinzufügen
         </Button>
       )}
     </div>
@@ -160,10 +160,10 @@ export default function ComplaintDetail({ complaintId, onNavigateBack, currentUs
   const handleTransition = async (targetStatus) => {
     try {
       await axios.post(`${API}/complaints/${complaintId}/transition`, { target_status: targetStatus });
-      toast.success(`Status ge\u00e4ndert: ${targetStatus}`);
+      toast.success(`Status geändert: ${targetStatus}`);
       loadComplaint();
     } catch (err) {
-      toast.error(err.response?.data?.detail || 'Status\u00e4nderung fehlgeschlagen');
+      toast.error(err.response?.data?.detail || 'Statusänderung fehlgeschlagen');
     }
   };
 
@@ -184,7 +184,7 @@ export default function ComplaintDetail({ complaintId, onNavigateBack, currentUs
       <div className="text-center py-12">
         <p className="text-gray-500">Reklamation nicht gefunden</p>
         <Button variant="ghost" onClick={onNavigateBack} className="mt-4">
-          <ArrowLeft className="w-4 h-4 mr-2" />Zur\u00fcck
+          <ArrowLeft className="w-4 h-4 mr-2" />Zurück
         </Button>
       </div>
     );
@@ -208,8 +208,8 @@ export default function ComplaintDetail({ complaintId, onNavigateBack, currentUs
           {allowedTransitions.length > 0 && (
             <div className="flex gap-1">
               {allowedTransitions.slice(0, 3).map((t) => (
-                <Button key={t} variant="outline" size="sm" onClick={() => handleTransition(t)}>
-                  <ChevronRight className="w-3 h-3 mr-1" />{t.replace(/_/g, ' ')}
+                <Button key={t.status || t} variant="outline" size="sm" onClick={() => handleTransition(t.status || t)}>
+                  <ChevronRight className="w-3 h-3 mr-1" />{t.label || (typeof t === 'string' ? t.replace(/_/g, ' ') : '')}
                 </Button>
               ))}
             </div>
@@ -236,14 +236,14 @@ export default function ComplaintDetail({ complaintId, onNavigateBack, currentUs
       <Card>
         <CardContent className="pt-4">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
-            <div><span className="text-gray-500 block">Kundennummer</span><span className="font-medium">{complaint.customer_number || '\u2014'}</span></div>
-            <div><span className="text-gray-500 block">FA</span><span className="font-medium">{complaint.fa_code || '\u2014'}</span></div>
-            <div><span className="text-gray-500 block">Art.-Nr.</span><span className="font-medium">{complaint.artikel_nummer || '\u2014'}</span></div>
-            <div><span className="text-gray-500 block">Fehlerort</span><span className="font-medium">{complaint.error_location || '\u2014'}</span></div>
-            <div><span className="text-gray-500 block">Feststellungsdatum</span><span className="font-medium">{complaint.detection_date || '\u2014'}</span></div>
-            <div><span className="text-gray-500 block">Meldedatum</span><span className="font-medium">{complaint.report_date || '\u2014'}</span></div>
-            <div><span className="text-gray-500 block">SAP Typ</span><span className="font-medium">{complaint.message_type || '\u2014'}</span></div>
-            <div><span className="text-gray-500 block">Menge</span><span className="font-medium">{complaint.affected_quantity || '\u2014'}</span></div>
+            <div><span className="text-gray-500 block">Kundennummer</span><span className="font-medium">{complaint.customer_number || '—'}</span></div>
+            <div><span className="text-gray-500 block">FA</span><span className="font-medium">{complaint.fa_code || '—'}</span></div>
+            <div><span className="text-gray-500 block">Art.-Nr.</span><span className="font-medium">{complaint.artikel_nummer || '—'}</span></div>
+            <div><span className="text-gray-500 block">Fehlerort</span><span className="font-medium">{complaint.error_location || '—'}</span></div>
+            <div><span className="text-gray-500 block">Feststellungsdatum</span><span className="font-medium">{complaint.detection_date || '—'}</span></div>
+            <div><span className="text-gray-500 block">Meldedatum</span><span className="font-medium">{complaint.report_date || '—'}</span></div>
+            <div><span className="text-gray-500 block">SAP Typ</span><span className="font-medium">{complaint.message_type || '—'}</span></div>
+            <div><span className="text-gray-500 block">Menge</span><span className="font-medium">{complaint.affected_quantity || '—'}</span></div>
           </div>
         </CardContent>
       </Card>
@@ -282,7 +282,7 @@ export default function ComplaintDetail({ complaintId, onNavigateBack, currentUs
             <CardContent className="pt-4">
               {activeTab === 'D1' && (
                 <div className="space-y-3">
-                  <h3 className="font-semibold text-gray-700">D1 \u2014 Teamzusammenstellung</h3>
+                  <h3 className="font-semibold text-gray-700">D1 — Teamzusammenstellung</h3>
                   {(draft.team_members || []).map((m, idx) => (
                     <div key={idx} className="flex gap-2 items-center">
                       <input className="flex-1 text-sm border rounded px-2 py-1" placeholder="Name" value={m.name || ''} disabled={!editing}
@@ -309,7 +309,7 @@ export default function ComplaintDetail({ complaintId, onNavigateBack, currentUs
 
               {activeTab === 'D2' && (
                 <div className="space-y-4">
-                  <h3 className="font-semibold text-gray-700">D2 \u2014 Problembeschreibung</h3>
+                  <h3 className="font-semibold text-gray-700">D2 — Problembeschreibung</h3>
                   <textarea className="w-full border rounded px-3 py-2 text-sm min-h-[100px]" placeholder="Problembeschreibung..." value={draft.problem_description || ''} disabled={!editing}
                     onChange={(e) => updateDraft('problem_description', e.target.value)} />
                   <div className="space-y-2">
@@ -340,15 +340,15 @@ export default function ComplaintDetail({ complaintId, onNavigateBack, currentUs
 
               {activeTab === 'D3' && (
                 <div className="space-y-3">
-                  <h3 className="font-semibold text-gray-700">D3 \u2014 Sofortma\u00dfnahmen</h3>
+                  <h3 className="font-semibold text-gray-700">D3 — Sofortmaßnahmen</h3>
                   <ActionTable actions={draft.immediate_actions || []} editing={editing}
-                    onChange={(v) => updateDraft('immediate_actions', v)} addLabel="Sofortma\u00dfnahme" />
+                    onChange={(v) => updateDraft('immediate_actions', v)} addLabel="Sofortmaßnahme" />
                 </div>
               )}
 
               {activeTab === 'D4' && (
                 <div className="space-y-4">
-                  <h3 className="font-semibold text-gray-700">D4 \u2014 Ursachenanalyse</h3>
+                  <h3 className="font-semibold text-gray-700">D4 — Ursachenanalyse</h3>
                   <div className="space-y-2">
                     <h4 className="text-sm font-semibold text-gray-600">Ursachen</h4>
                     {(draft.causes || []).map((c, idx) => (
@@ -379,15 +379,15 @@ export default function ComplaintDetail({ complaintId, onNavigateBack, currentUs
 
               {activeTab === 'D5' && (
                 <div className="space-y-3">
-                  <h3 className="font-semibold text-gray-700">D5 \u2014 Abstellma\u00dfnahmen</h3>
+                  <h3 className="font-semibold text-gray-700">D5 — Abstellmaßnahmen</h3>
                   <ActionTable actions={draft.corrective_actions || []} editing={editing}
-                    onChange={(v) => updateDraft('corrective_actions', v)} addLabel="Abstellma\u00dfnahme" />
+                    onChange={(v) => updateDraft('corrective_actions', v)} addLabel="Abstellmaßnahme" />
                 </div>
               )}
 
               {activeTab === 'D6' && (
                 <div className="space-y-3">
-                  <h3 className="font-semibold text-gray-700">D6 \u2014 Verifizierung</h3>
+                  <h3 className="font-semibold text-gray-700">D6 — Verifizierung</h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                       <label className="text-xs text-gray-500 block mb-1">Methode</label>
@@ -400,7 +400,7 @@ export default function ComplaintDetail({ complaintId, onNavigateBack, currentUs
                         onChange={(e) => updateDraft('verification', { ...draft.verification, result: e.target.value })} />
                     </div>
                     <div>
-                      <label className="text-xs text-gray-500 block mb-1">Gepr\u00fcft von</label>
+                      <label className="text-xs text-gray-500 block mb-1">Geprüft von</label>
                       <input className="w-full text-sm border rounded px-2 py-1" value={draft.verification?.verified_by || ''} disabled={!editing}
                         onChange={(e) => updateDraft('verification', { ...draft.verification, verified_by: e.target.value })} />
                     </div>
@@ -415,15 +415,15 @@ export default function ComplaintDetail({ complaintId, onNavigateBack, currentUs
 
               {activeTab === 'D7' && (
                 <div className="space-y-3">
-                  <h3 className="font-semibold text-gray-700">D7 \u2014 Vorbeugema\u00dfnahmen</h3>
+                  <h3 className="font-semibold text-gray-700">D7 — Vorbeugemaßnahmen</h3>
                   <ActionTable actions={draft.preventive_actions || []} editing={editing}
-                    onChange={(v) => updateDraft('preventive_actions', v)} addLabel="Vorbeugema\u00dfnahme" />
+                    onChange={(v) => updateDraft('preventive_actions', v)} addLabel="Vorbeugemaßnahme" />
                 </div>
               )}
 
               {activeTab === 'D8' && (
                 <div className="space-y-3">
-                  <h3 className="font-semibold text-gray-700">D8 \u2014 Abschluss</h3>
+                  <h3 className="font-semibold text-gray-700">D8 — Abschluss</h3>
                   <div>
                     <label className="text-xs text-gray-500 block mb-1">Lessons Learned</label>
                     <textarea className="w-full border rounded px-3 py-2 text-sm min-h-[80px]" value={draft.closure?.lessons_learned || ''} disabled={!editing}
@@ -452,7 +452,7 @@ export default function ComplaintDetail({ complaintId, onNavigateBack, currentUs
           {/* Completeness */}
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm">Vollst\u00e4ndigkeit</CardTitle>
+              <CardTitle className="text-sm">Vollständigkeit</CardTitle>
             </CardHeader>
             <CardContent>
               <CompletenessMeter summary={summary} />
@@ -488,8 +488,8 @@ export default function ComplaintDetail({ complaintId, onNavigateBack, currentUs
                     <div key={idx} className="flex items-start gap-2 text-xs">
                       <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />
                       <div>
-                        <span className="font-medium">{entry.from_status} \u2192 {entry.to_status}</span>
-                        <p className="text-gray-400">{entry.changed_by_name || entry.changed_by} \u2014 {new Date(entry.changed_at).toLocaleDateString('de-DE')}</p>
+                        <span className="font-medium">{entry.from_status} → {entry.to_status}</span>
+                        <p className="text-gray-400">{entry.changed_by_name || entry.changed_by} — {new Date(entry.changed_at).toLocaleDateString('de-DE')}</p>
                       </div>
                     </div>
                   ))}
