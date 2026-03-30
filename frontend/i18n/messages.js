@@ -1,0 +1,383 @@
+/**
+ * messages.js — Central i18n Message Catalog (DE / EN)
+ * =====================================================
+ * Contains all translatable strings for the 8D complaint management
+ * frontend. German (de) is the default locale since the primary
+ * user base operates in DACH regions.
+ *
+ * Adding a new key:
+ *   1. Add the key + German text under `de`
+ *   2. Add the key + English text under `en`
+ *   3. Use via `const { t } = useI18n(); t('your.key')`
+ *
+ * Interpolation uses ICU MessageFormat syntax:
+ *   'complaints.page': 'Seite {current} von {total}'
+ *   t('complaints.page', { current: 1, total: 5 })  =>  "Seite 1 von 5"
+ */
+
+export const messages = {
+  de: {
+    // ─── Navigation ───────────────────────────────────────────────
+    'nav.dashboard': 'Dashboard',
+    'nav.complaints': 'Reklamationen',
+    'nav.reviewQueue': 'Review-Queue',
+    'nav.analysis': 'Auswertungen',
+
+    // ─── Dashboard ────────────────────────────────────────────────
+    'dashboard.title': 'Dashboard',
+    'dashboard.openComplaints': 'Offene Reklamationen',
+    'dashboard.avgProcessingTime': 'Durchschn. Bearbeitungszeit',
+    'dashboard.avgScore': 'Durchschn. Qualitaetsscore',
+    'dashboard.closedThisMonth': 'Abgeschlossen diesen Monat',
+    'dashboard.days': 'Tage',
+    'dashboard.recentComplaints': 'Aktuelle Reklamationen',
+    'dashboard.statusDistribution': 'Status-Verteilung',
+    'dashboard.monthlyTrend': 'Monatlicher Trend',
+    'dashboard.quickActions': 'Schnellaktionen',
+    'dashboard.newComplaint': 'Neue Reklamation',
+    'dashboard.vsLastMonth': 'vs. Vormonat',
+    'dashboard.refresh': 'Aktualisieren',
+
+    // ─── Complaint List ───────────────────────────────────────────
+    'complaints.title': 'Reklamationen',
+    'complaints.new': 'Neue Reklamation',
+    'complaints.search': 'Suche nach Rekl.-Nr., Kunde, Problem...',
+    'complaints.allStatuses': 'Alle Status',
+    'complaints.resetFilters': 'Filter zuruecksetzen',
+    'complaints.number': 'Rekl.-Nr.',
+    'complaints.customer': 'Kunde',
+    'complaints.status': 'Status',
+    'complaints.createdAt': 'Erstellt am',
+    'complaints.processor': 'Bearbeiter',
+    'complaints.score': 'Score',
+    'complaints.actions': 'Aktionen',
+    'complaints.noResults': 'Keine Reklamationen gefunden',
+    'complaints.page': 'Seite {current} von {total}',
+    'complaints.perPage': 'pro Seite',
+
+    // ─── Complaint Detail ─────────────────────────────────────────
+    'detail.back': 'Zurueck',
+    'detail.changeStatus': 'Status aendern',
+    'detail.requestReview': 'Review anfordern',
+    'detail.edit': 'Bearbeiten',
+    'detail.save': 'Speichern',
+    'detail.cancel': 'Abbrechen',
+    'detail.completeness': 'Vollstaendigkeit',
+    'detail.documents': 'Dokumente',
+    'detail.reviews': 'Reviews',
+    'detail.history': 'Verlauf',
+
+    // ─── D-Steps ──────────────────────────────────────────────────
+    'd1.title': 'D1 — Team',
+    'd1.name': 'Name',
+    'd1.role': 'Rolle',
+    'd1.addMember': 'Mitglied hinzufuegen',
+    'd2.title': 'D2 — Problembeschreibung',
+    'd2.description': 'Beschreibung',
+    'd2.errorCodes': 'Fehlercodes',
+    'd2.addError': 'Fehler hinzufuegen',
+    'd3.title': 'D3 — Sofortmassnahmen',
+    'd3.addAction': 'Massnahme hinzufuegen',
+    'd4.title': 'D4 — Ursachenanalyse',
+    'd4.causes': 'Ursachen',
+    'd4.fiveWhy': '5-Why Analyse',
+    'd4.addCause': 'Ursache hinzufuegen',
+    'd4.question': 'Frage',
+    'd4.answer': 'Antwort',
+    'd5.title': 'D5 — Abstellmassnahmen',
+    'd5.addAction': 'Massnahme hinzufuegen',
+    'd6.title': 'D6 — Verifizierung',
+    'd6.method': 'Methode',
+    'd6.result': 'Ergebnis',
+    'd6.verifiedBy': 'Geprueft von',
+    'd7.title': 'D7 — Vorbeugmassnahmen',
+    'd7.addAction': 'Massnahme hinzufuegen',
+    'd8.title': 'D8 — Abschluss',
+    'd8.lessonsLearned': 'Lessons Learned',
+    'd8.closedBy': 'Geschlossen von',
+
+    // ─── Actions table ────────────────────────────────────────────
+    'action.code': 'Code',
+    'action.description': 'Beschreibung',
+    'action.responsible': 'Verantwortlich',
+    'action.status': 'Status',
+    'action.deadline': 'Frist',
+    'action.planned': 'Geplant',
+    'action.done': 'Erledigt',
+
+    // ─── Statuses ─────────────────────────────────────────────────
+    'status.draft': 'Entwurf',
+    'status.open': 'Offen',
+    'status.in_progress': 'In Bearbeitung',
+    'status.review_pending': 'Review ausstehend',
+    'status.approval_pending': 'Genehmigung ausstehend',
+    'status.approved': 'Genehmigt',
+    'status.closed': 'Geschlossen',
+    'status.rejected': 'Abgelehnt',
+    'status.archived': 'Archiviert',
+
+    // ─── Analysis ─────────────────────────────────────────────────
+    'analysis.title': 'Auswertungen',
+    'analysis.overview': 'Uebersicht',
+    'analysis.errorAnalysis': 'Fehleranalyse',
+    'analysis.customerAnalysis': 'Kundenanalyse',
+    'analysis.timeAnalysis': 'Zeitanalyse',
+    'analysis.scoreDistribution': 'Score-Verteilung',
+    'analysis.processingTime': 'Bearbeitungszeit',
+    'analysis.topErrors': 'Haeufigste Fehler',
+    'analysis.errorLocations': 'Fehlerorte',
+    'analysis.topCustomers': 'Top Kunden',
+    'analysis.openedVsClosed': 'Eroeffnet vs. Geschlossen',
+
+    // ─── Upload & OCR ─────────────────────────────────────────────
+    'upload.title': 'Dokumente',
+    'upload.dropzone': 'Datei hierher ziehen oder klicken',
+    'upload.maxSize': 'Max. {size} MB',
+    'upload.uploading': 'Hochladen...',
+    'upload.delete': 'Loeschen',
+    'upload.retryOcr': 'OCR wiederholen',
+    'ocr.title': 'OCR-Ergebnis',
+    'ocr.confidence': 'Konfidenz',
+    'ocr.fields': 'Felder',
+    'ocr.apply': '{count} Felder uebertragen',
+    'ocr.applying': 'Uebertrage...',
+    'ocr.selectAll': 'Alle auswaehlen',
+    'ocr.selectNone': 'Keine',
+    'ocr.masterData': 'Erkannte Stammdaten',
+    'ocr.sections': 'Erkannte 8D-Abschnitte',
+    'ocr.tadFields': 'TAD-Formular Felder',
+
+    // ─── Review ───────────────────────────────────────────────────
+    'review.title': 'KI-Review',
+    'review.request': 'Review anfordern',
+    'review.score': 'Qualitaetsscore',
+    'review.recommendation': 'Empfehlung',
+    'review.strengths': 'Staerken',
+    'review.actionItems': 'Handlungsbedarf',
+
+    // ─── Notifications ────────────────────────────────────────────
+    'notifications.title': 'Benachrichtigungen',
+    'notifications.markAllRead': 'Alle gelesen',
+    'notifications.empty': 'Keine Benachrichtigungen',
+    'notifications.showAll': 'Alle Benachrichtigungen anzeigen',
+    'notifications.justNow': 'Gerade eben',
+    'notifications.minutesAgo': 'vor {minutes} Min.',
+    'notifications.hoursAgo': 'vor {hours} Std.',
+    'notifications.daysAgo': 'vor {days} Tag(en)',
+
+    // ─── Common ───────────────────────────────────────────────────
+    'common.loading': 'Laden...',
+    'common.error': 'Fehler',
+    'common.save': 'Speichern',
+    'common.cancel': 'Abbrechen',
+    'common.delete': 'Loeschen',
+    'common.edit': 'Bearbeiten',
+    'common.close': 'Schliessen',
+    'common.confirm': 'Bestaetigen',
+    'common.yes': 'Ja',
+    'common.no': 'Nein',
+    'common.total': 'Gesamt',
+    'common.noData': 'Keine Daten vorhanden',
+
+    // ─── Metadata labels ──────────────────────────────────────────
+    'meta.complaintNumber': 'Reklamations-Nr.',
+    'meta.customerName': 'Kundenname',
+    'meta.customerNumber': 'Kundennummer',
+    'meta.createdBy': 'Erstellt von',
+    'meta.phone': 'Telefon',
+    'meta.customerOrderNumber': 'Kundenauftragsnr.',
+    'meta.deliveryNoteNumber': 'Lieferscheinnr.',
+    'meta.returnNumber': 'Retourennummer',
+    'meta.faCode': 'FA',
+    'meta.artikelNummer': 'Art.-/SOBO-Nr.',
+    'meta.detectionDate': 'Feststellungsdatum',
+    'meta.reportDate': 'Meldedatum',
+    'meta.errorLocation': 'Fehlerort',
+    'meta.messageType': 'SAP Meldungstyp',
+    'meta.affectedQuantity': 'Betroffene Menge',
+  },
+
+  en: {
+    // ─── Navigation ───────────────────────────────────────────────
+    'nav.dashboard': 'Dashboard',
+    'nav.complaints': 'Complaints',
+    'nav.reviewQueue': 'Review Queue',
+    'nav.analysis': 'Analytics',
+
+    // ─── Dashboard ────────────────────────────────────────────────
+    'dashboard.title': 'Dashboard',
+    'dashboard.openComplaints': 'Open Complaints',
+    'dashboard.avgProcessingTime': 'Avg. Processing Time',
+    'dashboard.avgScore': 'Avg. Quality Score',
+    'dashboard.closedThisMonth': 'Closed This Month',
+    'dashboard.days': 'Days',
+    'dashboard.recentComplaints': 'Recent Complaints',
+    'dashboard.statusDistribution': 'Status Distribution',
+    'dashboard.monthlyTrend': 'Monthly Trend',
+    'dashboard.quickActions': 'Quick Actions',
+    'dashboard.newComplaint': 'New Complaint',
+    'dashboard.vsLastMonth': 'vs. Last Month',
+    'dashboard.refresh': 'Refresh',
+
+    // ─── Complaint List ───────────────────────────────────────────
+    'complaints.title': 'Complaints',
+    'complaints.new': 'New Complaint',
+    'complaints.search': 'Search by number, customer, problem...',
+    'complaints.allStatuses': 'All Statuses',
+    'complaints.resetFilters': 'Reset Filters',
+    'complaints.number': 'Compl. No.',
+    'complaints.customer': 'Customer',
+    'complaints.status': 'Status',
+    'complaints.createdAt': 'Created',
+    'complaints.processor': 'Processor',
+    'complaints.score': 'Score',
+    'complaints.actions': 'Actions',
+    'complaints.noResults': 'No complaints found',
+    'complaints.page': 'Page {current} of {total}',
+    'complaints.perPage': 'per page',
+
+    // ─── Complaint Detail ─────────────────────────────────────────
+    'detail.back': 'Back',
+    'detail.changeStatus': 'Change Status',
+    'detail.requestReview': 'Request Review',
+    'detail.edit': 'Edit',
+    'detail.save': 'Save',
+    'detail.cancel': 'Cancel',
+    'detail.completeness': 'Completeness',
+    'detail.documents': 'Documents',
+    'detail.reviews': 'Reviews',
+    'detail.history': 'History',
+
+    // ─── D-Steps ──────────────────────────────────────────────────
+    'd1.title': 'D1 — Team',
+    'd1.name': 'Name',
+    'd1.role': 'Role',
+    'd1.addMember': 'Add Member',
+    'd2.title': 'D2 — Problem Description',
+    'd2.description': 'Description',
+    'd2.errorCodes': 'Error Codes',
+    'd2.addError': 'Add Error',
+    'd3.title': 'D3 — Containment Actions',
+    'd3.addAction': 'Add Action',
+    'd4.title': 'D4 — Root Cause Analysis',
+    'd4.causes': 'Causes',
+    'd4.fiveWhy': '5-Why Analysis',
+    'd4.addCause': 'Add Cause',
+    'd4.question': 'Question',
+    'd4.answer': 'Answer',
+    'd5.title': 'D5 — Corrective Actions',
+    'd5.addAction': 'Add Action',
+    'd6.title': 'D6 — Verification',
+    'd6.method': 'Method',
+    'd6.result': 'Result',
+    'd6.verifiedBy': 'Verified By',
+    'd7.title': 'D7 — Preventive Actions',
+    'd7.addAction': 'Add Action',
+    'd8.title': 'D8 — Closure',
+    'd8.lessonsLearned': 'Lessons Learned',
+    'd8.closedBy': 'Closed By',
+
+    // ─── Actions table ────────────────────────────────────────────
+    'action.code': 'Code',
+    'action.description': 'Description',
+    'action.responsible': 'Responsible',
+    'action.status': 'Status',
+    'action.deadline': 'Deadline',
+    'action.planned': 'Planned',
+    'action.done': 'Done',
+
+    // ─── Statuses ─────────────────────────────────────────────────
+    'status.draft': 'Draft',
+    'status.open': 'Open',
+    'status.in_progress': 'In Progress',
+    'status.review_pending': 'Review Pending',
+    'status.approval_pending': 'Approval Pending',
+    'status.approved': 'Approved',
+    'status.closed': 'Closed',
+    'status.rejected': 'Rejected',
+    'status.archived': 'Archived',
+
+    // ─── Analysis ─────────────────────────────────────────────────
+    'analysis.title': 'Analytics',
+    'analysis.overview': 'Overview',
+    'analysis.errorAnalysis': 'Error Analysis',
+    'analysis.customerAnalysis': 'Customer Analysis',
+    'analysis.timeAnalysis': 'Time Analysis',
+    'analysis.scoreDistribution': 'Score Distribution',
+    'analysis.processingTime': 'Processing Time',
+    'analysis.topErrors': 'Top Errors',
+    'analysis.errorLocations': 'Error Locations',
+    'analysis.topCustomers': 'Top Customers',
+    'analysis.openedVsClosed': 'Opened vs. Closed',
+
+    // ─── Upload & OCR ─────────────────────────────────────────────
+    'upload.title': 'Documents',
+    'upload.dropzone': 'Drop file here or click to browse',
+    'upload.maxSize': 'Max. {size} MB',
+    'upload.uploading': 'Uploading...',
+    'upload.delete': 'Delete',
+    'upload.retryOcr': 'Retry OCR',
+    'ocr.title': 'OCR Result',
+    'ocr.confidence': 'Confidence',
+    'ocr.fields': 'Fields',
+    'ocr.apply': 'Apply {count} Fields',
+    'ocr.applying': 'Applying...',
+    'ocr.selectAll': 'Select All',
+    'ocr.selectNone': 'None',
+    'ocr.masterData': 'Detected Master Data',
+    'ocr.sections': 'Detected 8D Sections',
+    'ocr.tadFields': 'TAD Form Fields',
+
+    // ─── Review ───────────────────────────────────────────────────
+    'review.title': 'AI Review',
+    'review.request': 'Request Review',
+    'review.score': 'Quality Score',
+    'review.recommendation': 'Recommendation',
+    'review.strengths': 'Strengths',
+    'review.actionItems': 'Action Items',
+
+    // ─── Notifications ────────────────────────────────────────────
+    'notifications.title': 'Notifications',
+    'notifications.markAllRead': 'Mark all read',
+    'notifications.empty': 'No notifications',
+    'notifications.showAll': 'Show all notifications',
+    'notifications.justNow': 'Just now',
+    'notifications.minutesAgo': '{minutes} min. ago',
+    'notifications.hoursAgo': '{hours} hr. ago',
+    'notifications.daysAgo': '{days} day(s) ago',
+
+    // ─── Common ───────────────────────────────────────────────────
+    'common.loading': 'Loading...',
+    'common.error': 'Error',
+    'common.save': 'Save',
+    'common.cancel': 'Cancel',
+    'common.delete': 'Delete',
+    'common.edit': 'Edit',
+    'common.close': 'Close',
+    'common.confirm': 'Confirm',
+    'common.yes': 'Yes',
+    'common.no': 'No',
+    'common.total': 'Total',
+    'common.noData': 'No data available',
+
+    // ─── Metadata labels ──────────────────────────────────────────
+    'meta.complaintNumber': 'Complaint No.',
+    'meta.customerName': 'Customer Name',
+    'meta.customerNumber': 'Customer No.',
+    'meta.createdBy': 'Created By',
+    'meta.phone': 'Phone',
+    'meta.customerOrderNumber': 'Customer Order No.',
+    'meta.deliveryNoteNumber': 'Delivery Note No.',
+    'meta.returnNumber': 'Return No.',
+    'meta.faCode': 'FA',
+    'meta.artikelNummer': 'Article/SOBO No.',
+    'meta.detectionDate': 'Detection Date',
+    'meta.reportDate': 'Report Date',
+    'meta.errorLocation': 'Error Location',
+    'meta.messageType': 'SAP Message Type',
+    'meta.affectedQuantity': 'Affected Quantity',
+  },
+};
+
+export const defaultLocale = 'de';
+export const supportedLocales = ['de', 'en'];
