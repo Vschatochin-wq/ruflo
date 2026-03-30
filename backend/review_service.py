@@ -244,7 +244,7 @@ class ReviewService:
             "id": str(uuid.uuid4()),
             "complaint_id": complaint_id,
             "complaint_number": complaint.get("complaint_number", ""),
-            "model": "claude-opus-4-6",
+            "model": "claude-opus-4-20250514",
             "requested_by": requested_by,
             "requested_by_name": requested_by_name,
             "created_at": datetime.now(timezone.utc).isoformat(),
@@ -520,7 +520,7 @@ class ReviewService:
                 api_key=self.api_key,
                 session_id=f"opus-review-{prompt_data.get('complaint_number', 'unknown')}",
                 system_message=OPUS_REVIEW_SYSTEM_PROMPT
-            ).with_model("anthropic", "claude-opus-4-6")
+            ).with_model("anthropic", "claude-opus-4-20250514")
 
             user_message = UserMessage(text=user_prompt)
             response_text = await chat.send_message(user_message)

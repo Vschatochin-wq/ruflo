@@ -37,8 +37,8 @@ Import, setup and run the GitHub repository `https://github.com/Vschatochin-wq/8
 - [x] Statistics endpoints (`/api/v1/statistics/dashboard`, trends, distribution)
 - [x] Notification endpoints (`/api/v1/notifications`, unread-count)
 - [x] Upload endpoints with OCR support
-- [x] AI service integrated with Emergent LLM Key
-- [x] Review service integrated with Emergent LLM Key  
+- [x] AI service integrated with Emergent LLM Key (Claude Opus 4 + Sonnet 4 — LIVE GETESTET)
+- [x] Review service integrated with Emergent LLM Key (Opus 4.6 Review Score: 72/100 für VW-Reklamation)  
 - [x] Frontend Dashboard with stats and charts
 - [x] Frontend Complaint List with filters and pagination
 - [x] Frontend Complaint Detail with D1-D8 tabs

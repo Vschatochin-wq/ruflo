@@ -41,7 +41,7 @@ def _sanitize_for_prompt(text: str) -> str:
 
 MODELS = {
     "sonnet": {
-        "id": "claude-sonnet-4-6",
+        "id": "claude-sonnet-4-20250514",
         "max_tokens": 4096,
         "use_for": ["extraction", "suggestions", "completeness", "auto_reply", "five_why"],
         "cost_per_1k_input": 0.003,
@@ -49,7 +49,7 @@ MODELS = {
         "avg_latency_ms": 2000,
     },
     "opus": {
-        "id": "claude-opus-4-6",
+        "id": "claude-opus-4-20250514",
         "max_tokens": 4096,
         "use_for": ["8d_review", "plausibility", "consistency_check"],
         "cost_per_1k_input": 0.015,
